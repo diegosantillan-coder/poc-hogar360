@@ -1,0 +1,1 @@
+var r=function(A){return A.PUBLICADA="PUBLICADA",A.PUBLICACION_PAUSADA="PUBLICACION_PAUSADA",A.TRANSACCION_CURSO="TRANSACCION_CURSO",A.TRANSACCION_FINALIZADA="TRANSACCION_FINALIZADA",A}(r||{});var o=function(A){return A.ADMIN="admin",A.VENDEDOR="vendedor",A.COMPRADOR="comprador",A}(o||{});export{r as a,o as b};
