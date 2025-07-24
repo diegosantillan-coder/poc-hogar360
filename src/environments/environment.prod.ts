@@ -1,4 +1,4 @@
 export const environment = {
 
-  BASE_URL: '',
+  BASE_URL: 'poc-hogar360',
 }
