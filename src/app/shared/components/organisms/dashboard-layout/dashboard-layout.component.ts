@@ -1,12 +1,13 @@
-import { Component, Input, Output, EventEmitter, inject, OnInit, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, HostListener, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { environment } from '../../../../../environments/environment';
 import { AuthFacade } from '../../../../core/facades/auth.facade';
-import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
-import { AppHeaderComponent } from '../../molecules/app-header/app-header.component';
-import { AppFooterComponent } from '../../molecules/app-footer/app-footer.component';
 import { NavigationItem } from '../../atoms/nav-item/nav-item.component';
-import { UserInfo, DropdownAction } from '../../atoms/user-dropdown/user-dropdown.component';
+import { DropdownAction, UserInfo } from '../../atoms/user-dropdown/user-dropdown.component';
+import { AppFooterComponent } from '../../molecules/app-footer/app-footer.component';
+import { AppHeaderComponent } from '../../molecules/app-header/app-header.component';
+import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -88,7 +89,7 @@ export class DashboardLayoutComponent implements OnInit {
     return {
       name: user?.nombre || 'Usuario',
       role: user?.role || 'usuario',
-      avatar: user?.avatar || '/assets/images/avatar.jpg'
+      avatar: user?.avatar || `${environment.BASE_URL}/assets/images/avatar.jpg`
     };
   }
 

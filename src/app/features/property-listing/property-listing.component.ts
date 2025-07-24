@@ -8,6 +8,7 @@ import { UbicacionService } from '../../core/services/ubicacion.service';
 import { Property } from '../../core/interfaces/property.interface';
 import { Categoria } from '../../core/interfaces/categoria.interface';
 import { Ubicacion } from '../../core/interfaces/ubicacion.interface';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-property-listing',
@@ -368,7 +369,7 @@ export class PropertyListingComponent implements OnInit {
           estado_publicacion: 'PUBLICADA' as any,
           fecha_publicacion: new Date(),
           vendedor: { id: 1, nombre: 'Juan Pérez' } as any,
-          images: ['/assets/images/property-1.jpg']
+          images: [`${environment.BASE_URL}/assets/images/property-1.jpg`]
         },
         {
           id: 2,
@@ -383,7 +384,7 @@ export class PropertyListingComponent implements OnInit {
           estado_publicacion: 'PUBLICADA' as any,
           fecha_publicacion: new Date(),
           vendedor: { id: 2, nombre: 'María González' } as any,
-          images: ['/assets/images/property-2.jpg']
+          images: [`${environment.BASE_URL}/assets/images/property-2.jpg`]
         }
       ];
       

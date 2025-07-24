@@ -1,11 +1,12 @@
-import { Component, inject, ChangeDetectionStrategy, signal, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
+import { environment } from '../../../environments/environment';
 import { AuthFacade } from '../../core/facades/auth.facade';
-import { LogoComponent } from '../../shared/components/atoms/logo/logo.component';
-import { ButtonComponent } from '../../shared/components/atoms/button/button.component';
 import { UserRole } from '../../core/interfaces';
+import { ButtonComponent } from '../../shared/components/atoms/button/button.component';
+import { LogoComponent } from '../../shared/components/atoms/logo/logo.component';
 
 @Component({
   selector: 'app-user-layout',
@@ -20,12 +21,12 @@ import { UserRole } from '../../core/interfaces';
             <app-logo size="md" variant="white"></app-logo>
           </div>
         </div>
-        
+
         <nav class="sidebar-nav">
           <ul class="nav-list">
             <!-- Dashboard común para todos -->
             <li>
-              <a class="nav-item" 
+              <a class="nav-item"
                  [class.active]="isActiveRoute('dashboard')"
                  (click)="navigateToUserDashboard($event)">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -41,7 +42,7 @@ import { UserRole } from '../../core/interfaces';
             <!-- Opciones de Admin -->
             @if (isAdmin()) {
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('/admin/categorias')"
                    (click)="navigateTo('/admin/categorias', $event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -54,7 +55,7 @@ import { UserRole } from '../../core/interfaces';
                 </a>
               </li>
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('/admin/ubicaciones')"
                    (click)="navigateTo('/admin/ubicaciones', $event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -65,7 +66,7 @@ import { UserRole } from '../../core/interfaces';
                 </a>
               </li>
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('/admin/usuarios-vendedores')"
                    (click)="navigateTo('/admin/usuarios-vendedores', $event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -80,7 +81,7 @@ import { UserRole } from '../../core/interfaces';
             <!-- Opciones de Vendedor -->
             @if (isVendedor()) {
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('/vendedor/propiedades')"
                    (click)="navigateTo('/vendedor/propiedades', $event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -91,7 +92,7 @@ import { UserRole } from '../../core/interfaces';
                 </a>
               </li>
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('/vendedor/horarios-visitas')"
                    (click)="navigateTo('/vendedor/horarios-visitas', $event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -106,7 +107,7 @@ import { UserRole } from '../../core/interfaces';
             <!-- Opciones de Comprador -->
             @if (isComprador()) {
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('/propiedades')"
                    (click)="navigateTo('/propiedades', $event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -117,7 +118,7 @@ import { UserRole } from '../../core/interfaces';
                 </a>
               </li>
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('/comprador/visitas')"
                    (click)="navigateTo('/comprador/visitas', $event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -129,7 +130,7 @@ import { UserRole } from '../../core/interfaces';
                 </a>
               </li>
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('/horarios-disponibles')"
                    (click)="navigateTo('/horarios-disponibles', $event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -146,7 +147,7 @@ import { UserRole } from '../../core/interfaces';
             <!-- Configuración común para Admin y Vendedor -->
             @if (isAdminOrVendedor()) {
               <li>
-                <a class="nav-item" 
+                <a class="nav-item"
                    [class.active]="isActiveRoute('configuracion')"
                    (click)="navigateToSettings($event)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -167,21 +168,21 @@ import { UserRole } from '../../core/interfaces';
         <header class="header">
           <div class="header-content">
             <h1 class="page-title">{{ getPageTitle() }}</h1>
-            
+
             <div class="user-section">
               <div class="user-info">
                 <div class="user-details">
                   <span class="welcome-text">Bienvenido, {{ getUserName() }}</span>
                   <span class="user-role">{{ getUserRole() }}</span>
                 </div>
-                <img 
-                  [src]="getUserAvatar()" 
+                <img
+                  [src]="getUserAvatar()"
                   [alt]="getUserName()"
                   class="user-avatar clickable"
                   (click)="toggleDropdown($event)"
                 />
               </div>
-              
+
               <div class="user-dropdown" [class.open]="dropdownOpen()">
                 <div class="dropdown-menu" *ngIf="dropdownOpen()">
                   <a class="dropdown-item" (click)="viewProfile($event)">
@@ -417,7 +418,7 @@ export class UserLayoutComponent implements OnInit {
   }
 
   getUserAvatar(): string {
-    return this.authFacade.getCurrentUser()?.avatar || '/assets/images/avatar.jpg';
+    return this.authFacade.getCurrentUser()?.avatar || `${environment.BASE_URL}/assets/images/avatar.jpg`;
   }
 
   isActiveRoute(route: string): boolean {

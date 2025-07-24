@@ -4,6 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 
 import { AuthFacade } from '../../core/facades/auth.facade';
 import { LogoComponent } from '../../shared/components/atoms/logo/logo.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin-layout',
@@ -354,7 +355,7 @@ export class AdminLayoutComponent implements OnInit {
 
   getUserAvatar(): string {
     // Usar una imagen por defecto o la imagen del usuario
-    return this.authFacade.getCurrentUser()?.avatar || '/assets/images/avatar.jpg';
+    return this.authFacade.getCurrentUser()?.avatar || `${environment.BASE_URL}/assets/images/avatar.jpg`;
   }
 
   isActiveRoute(route: string): boolean {

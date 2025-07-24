@@ -1,7 +1,8 @@
-import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 interface PropertyCard {
   id: number;
@@ -29,12 +30,12 @@ interface PropertyCard {
               Hogar360
             </div>
           </div>
-          
+
           <div class="hidden md:flex items-center space-x-8">
             <a href="#" class="text-secondary-600 hover:text-primary-600 font-medium">Compra</a>
             <a href="#" class="text-secondary-600 hover:text-primary-600 font-medium">Renta</a>
             <a href="#" class="text-secondary-600 hover:text-primary-600 font-medium">Vende</a>
-            <button 
+            <button
               (click)="navigateToLogin()"
               class="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium">
               Ingresar
@@ -50,13 +51,13 @@ interface PropertyCard {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-black mb-8">Encuentra tu casa perfecta</h1>
-            
+
             <!-- Search Form -->
             <div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-xl">
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Category Dropdown -->
                 <div class="relative">
-                  <select 
+                  <select
                     [(ngModel)]="selectedCategory"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white">
                     <option value="">Categoría</option>
@@ -70,16 +71,16 @@ interface PropertyCard {
                     </svg>
                   </div>
                 </div>
-                
+
                 <!-- Location Input -->
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   [(ngModel)]="searchLocation"
                   placeholder="Buscar por ubicación"
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-                
+
                 <!-- Search Button -->
-                <button 
+                <button
                   (click)="searchProperties()"
                   class="w-full bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium">
                   Buscar
@@ -97,7 +98,7 @@ interface PropertyCard {
           <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-bold text-black">Propiedades Destacadas</h2>
             <div class="flex space-x-2">
-              <button 
+              <button
                 [class]="viewMode() === 'grid' ? 'bg-white border border-gray-300 text-secondary-600' : 'bg-white border border-gray-300 text-secondary-600'"
                 (click)="setViewMode('grid')"
                 class="p-2 rounded-lg">
@@ -105,7 +106,7 @@ interface PropertyCard {
                   <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                 </svg>
               </button>
-              <button 
+              <button
                 [class]="viewMode() === 'list' ? 'bg-white border border-gray-300 text-secondary-600' : 'bg-white border border-gray-300 text-secondary-600'"
                 (click)="setViewMode('list')"
                 class="p-2 rounded-lg">
@@ -127,12 +128,12 @@ interface PropertyCard {
                     {{ property.type }}
                   </span>
                 </div>
-                
+
                 <!-- Property Details -->
                 <div class="p-6">
                   <h3 class="text-lg font-bold text-black mb-2">{{ property.title }}</h3>
                   <p class="text-secondary-600 mb-4">{{ property.location }}</p>
-                  
+
                   <div class="flex justify-between items-center mb-4">
                     <span class="text-2xl font-bold text-primary-600">{{ property.price }}</span>
                     <button class="text-gray-400 hover:text-red-500 transition-colors">
@@ -141,7 +142,7 @@ interface PropertyCard {
                       </svg>
                     </button>
                   </div>
-                  
+
                   <div class="flex justify-between text-sm text-secondary-600">
                     <div class="flex items-center">
                       <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -178,7 +179,7 @@ interface PropertyCard {
               <h3 class="text-lg font-bold text-primary-600 mb-4">Hogar360</h3>
               <p class="text-secondary-600">Tu partner en la búsqueda del espacio perfecto.</p>
             </div>
-            
+
             <!-- Quick Links -->
             <div>
               <h4 class="font-semibold text-black mb-4">Acceso rápido</h4>
@@ -187,7 +188,7 @@ interface PropertyCard {
                 <li><a href="#" class="text-secondary-600 hover:text-primary-600">Publica tu propiedad</a></li>
               </ul>
             </div>
-            
+
             <!-- Contact -->
             <div>
               <h4 class="font-semibold text-black mb-4">Contactanos</h4>
@@ -213,7 +214,7 @@ interface PropertyCard {
                 </li>
               </ul>
             </div>
-            
+
             <!-- Social Media -->
             <div>
               <h4 class="font-semibold text-black mb-4">Síguenos</h4>
@@ -241,7 +242,7 @@ interface PropertyCard {
               </div>
             </div>
           </div>
-          
+
           <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-secondary-600">
             © 2025 Hogar360. All rights reserved.
           </div>
@@ -252,7 +253,7 @@ interface PropertyCard {
 })
 export class LandingComponent {
   private readonly router = inject(Router);
-  
+
   selectedCategory = signal('');
   searchLocation = signal('');
   viewMode = signal<'grid' | 'list'>('grid');
@@ -267,7 +268,7 @@ export class LandingComponent {
       bathrooms: 3,
       area: '2,500 sq ft',
       type: 'Venta',
-      image: '/assets/images/property-1.jpg'
+      image: `${environment.BASE_URL}/assets/images/property-1.jpg`
     },
     {
       id: 2,
@@ -278,7 +279,7 @@ export class LandingComponent {
       bathrooms: 2,
       area: '1,200 sq ft',
       type: 'Renta',
-      image: '/assets/images/property-2.jpg'
+      image: `${environment.BASE_URL}/assets/images/property-2.jpg`
     },
     {
       id: 3,
@@ -289,7 +290,7 @@ export class LandingComponent {
       bathrooms: 1,
       area: '800 sq ft',
       type: 'Venta',
-      image: '/assets/images/property-3.jpg'
+      image: `${environment.BASE_URL}/assets/images/property-3.jpg`
     }
   ];
 

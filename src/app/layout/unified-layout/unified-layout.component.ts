@@ -7,6 +7,7 @@ import { AuthFacade } from '../../core/facades/auth.facade';
 import { UserRole } from '../../core/interfaces';
 import { DashboardLayoutComponent } from '../../shared/components/organisms/dashboard-layout/dashboard-layout.component';
 import { NavigationItem } from '../../shared/components/atoms/nav-item/nav-item.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-unified-layout',
@@ -58,7 +59,7 @@ export class UnifiedLayoutComponent implements OnInit {
     
     for (const file of iconFiles) {
       try {
-        const svg = await firstValueFrom(this.http.get(`/assets/images/${file}`, { responseType: 'text' }));
+        const svg = await firstValueFrom(this.http.get(`${environment.BASE_URL}/assets/images/${file}`, { responseType: 'text' }));
         if (svg) {
           this.svgCache.set(file, svg);
         }
