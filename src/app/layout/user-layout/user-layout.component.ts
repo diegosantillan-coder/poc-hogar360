@@ -418,7 +418,7 @@ export class UserLayoutComponent implements OnInit {
   }
 
   getUserAvatar(): string {
-    return this.authFacade.getCurrentUser()?.avatar || `${environment.BASE_URL}/assets/images/avatar.jpg`;
+    return this.authFacade.getCurrentUser()?.avatar || `${environment.BASE_URL}/images/avatar.jpg`;
   }
 
   isActiveRoute(route: string): boolean {

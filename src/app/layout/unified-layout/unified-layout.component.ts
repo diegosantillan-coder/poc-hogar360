@@ -1,13 +1,13 @@
-import { Component, inject, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { AuthFacade } from '../../core/facades/auth.facade';
 import { UserRole } from '../../core/interfaces';
-import { DashboardLayoutComponent } from '../../shared/components/organisms/dashboard-layout/dashboard-layout.component';
 import { NavigationItem } from '../../shared/components/atoms/nav-item/nav-item.component';
-import { environment } from '../../../environments/environment';
+import { DashboardLayoutComponent } from '../../shared/components/organisms/dashboard-layout/dashboard-layout.component';
 
 @Component({
   selector: 'app-unified-layout',
@@ -32,7 +32,7 @@ export class UnifiedLayoutComponent implements OnInit {
   currentUser = this.authFacade.user$;
   pageTitle = '';
   navigationItems: NavigationItem[] = [];
-  
+
   // Cache para los SVGs
   private readonly svgCache = new Map<string, string>();
 
@@ -48,7 +48,7 @@ export class UnifiedLayoutComponent implements OnInit {
   private async loadSvgIcons(): Promise<void> {
     const iconFiles = [
       'dashboard-icon.svg',
-      'categories-icon.svg', 
+      'categories-icon.svg',
       'properties-icon.svg',
       'users-icon.svg',
       'settings-icon.svg',
@@ -56,10 +56,10 @@ export class UnifiedLayoutComponent implements OnInit {
     ];
 
     console.log('🎨 Loading SVG icons...');
-    
+
     for (const file of iconFiles) {
       try {
-        const svg = await firstValueFrom(this.http.get(`${environment.BASE_URL}/assets/images/${file}`, { responseType: 'text' }));
+        const svg = await firstValueFrom(this.http.get(`${environment.BASE_URL}/images/${file}`, { responseType: 'text' }));
         if (svg) {
           this.svgCache.set(file, svg);
         }
@@ -240,7 +240,7 @@ export class UnifiedLayoutComponent implements OnInit {
   private getDashboardRoute(): string {
     const user = this.authFacade.getCurrentUser();
     if (!user) return '/dashboard';
-    
+
     switch (user.role) {
       case UserRole.ADMIN:
         return '/admin/dashboard';
@@ -276,7 +276,7 @@ export class UnifiedLayoutComponent implements OnInit {
       ...navItem,
       isActive: navItem.id === item.id
     }));
-    
+
     // Actualizar título de página
     this.updatePageTitle();
   }

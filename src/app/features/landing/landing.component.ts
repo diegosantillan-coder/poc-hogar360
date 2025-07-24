@@ -268,7 +268,7 @@ export class LandingComponent {
       bathrooms: 3,
       area: '2,500 sq ft',
       type: 'Venta',
-      image: `${environment.BASE_URL}/assets/images/property-1.jpg`
+      image: `${environment.BASE_URL}/images/property-1.jpg`
     },
     {
       id: 2,
@@ -279,7 +279,7 @@ export class LandingComponent {
       bathrooms: 2,
       area: '1,200 sq ft',
       type: 'Renta',
-      image: `${environment.BASE_URL}/assets/images/property-2.jpg`
+      image: `${environment.BASE_URL}/images/property-2.jpg`
     },
     {
       id: 3,
@@ -290,7 +290,7 @@ export class LandingComponent {
       bathrooms: 1,
       area: '800 sq ft',
       type: 'Venta',
-      image: `${environment.BASE_URL}/assets/images/property-3.jpg`
+      image: `${environment.BASE_URL}/images/property-3.jpg`
     }
   ];
 

@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 
 export interface UserInfo {
   name: string;
@@ -24,17 +24,17 @@ export interface DropdownAction {
           <span class="welcome-text">Bienvenido, {{ user.name }}</span>
           <span class="user-role">{{ user.role }}</span>
         </div>
-        <img 
-          [src]="user.avatar || '/assets/images/avatar.jpg'" 
+        <img
+          [src]="user.avatar || '/images/avatar.jpg'"
           [alt]="user.name"
           class="user-avatar clickable"
           (click)="toggleDropdown($event)"
         />
       </div>
-      
+
       <div class="user-dropdown" [class.open]="dropdownOpen()">
         <div class="dropdown-menu" *ngIf="dropdownOpen()">
-          <a class="dropdown-item" 
+          <a class="dropdown-item"
              *ngFor="let action of actions"
              (click)="onActionClick(action, $event)">
             <div class="action-icon" [innerHTML]="action.icon"></div>

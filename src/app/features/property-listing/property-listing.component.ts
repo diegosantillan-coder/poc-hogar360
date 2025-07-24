@@ -1,14 +1,14 @@
-import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { PropertyService } from '../../core/services/property.service';
-import { CategoriaService } from '../../core/services/categoria.service';
-import { UbicacionService } from '../../core/services/ubicacion.service';
-import { Property } from '../../core/interfaces/property.interface';
-import { Categoria } from '../../core/interfaces/categoria.interface';
-import { Ubicacion } from '../../core/interfaces/ubicacion.interface';
 import { environment } from '../../../environments/environment';
+import { Categoria } from '../../core/interfaces/categoria.interface';
+import { Property } from '../../core/interfaces/property.interface';
+import { Ubicacion } from '../../core/interfaces/ubicacion.interface';
+import { CategoriaService } from '../../core/services/categoria.service';
+import { PropertyService } from '../../core/services/property.service';
+import { UbicacionService } from '../../core/services/ubicacion.service';
 
 @Component({
   selector: 'app-property-listing',
@@ -27,7 +27,7 @@ import { environment } from '../../../environments/environment';
       <!-- Filters Section -->
       <div class="bg-white rounded-lg shadow-md p-6 mb-6">
         <h2 class="text-lg font-semibold text-secondary-900 mb-4">Filtros de Búsqueda</h2>
-        
+
         <form [formGroup]="filterForm" class="space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Ubicación -->
@@ -137,13 +137,13 @@ import { environment } from '../../../environments/environment';
           </div>
 
           <div class="flex justify-end space-x-3">
-            <button 
+            <button
               type="button"
               (click)="clearFilters()"
               class="px-4 py-2 border border-secondary-300 text-secondary-700 rounded-lg hover:bg-secondary-50 transition-colors">
               Limpiar Filtros
             </button>
-            <button 
+            <button
               type="button"
               (click)="applyFilters()"
               class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
@@ -234,16 +234,16 @@ import { environment } from '../../../environments/environment';
         @if (totalPages() > 1) {
           <div class="mt-8 flex justify-center">
             <nav class="flex space-x-2">
-              <button 
+              <button
                 (click)="previousPage()"
                 [disabled]="currentPage() === 1"
                 class="px-3 py-2 border border-secondary-300 text-secondary-700 rounded-lg hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed">
                 Anterior
               </button>
-              
+
               @for (page of getVisiblePages(); track page) {
                 @if (isNumber(page)) {
-                  <button 
+                  <button
                     (click)="goToPage(page)"
                     [class]="page === currentPage() ? 'bg-primary-600 text-white' : 'bg-white text-secondary-700 border border-secondary-300 hover:bg-secondary-50'"
                     class="px-3 py-2 rounded-lg transition-colors">
@@ -253,8 +253,8 @@ import { environment } from '../../../environments/environment';
                   <span class="px-3 py-2 text-secondary-400">{{ page }}</span>
                 }
               }
-              
-              <button 
+
+              <button
                 (click)="nextPage()"
                 [disabled]="currentPage() === totalPages()"
                 class="px-3 py-2 border border-secondary-300 text-secondary-700 rounded-lg hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -283,18 +283,18 @@ export class PropertyListingComponent implements OnInit {
   private readonly propertyService = inject(PropertyService);
   private readonly categoriaService = inject(CategoriaService);
   private readonly ubicacionService = inject(UbicacionService);
-  
+
   properties = signal<Property[]>([]);
   filteredProperties = signal<Property[]>([]);
   categorias = signal<Categoria[]>([]);
   ubicaciones = signal<Ubicacion[]>([]);
   loading = signal(false);
-  
+
   // Pagination
   currentPage = signal(1);
   itemsPerPage = 9;
   totalPages = signal(1);
-  
+
   filterForm: FormGroup = this.fb.group({
     ubicacion_id: [''],
     categoria_id: [''],
@@ -310,7 +310,7 @@ export class PropertyListingComponent implements OnInit {
     this.loadCategorias();
     this.loadUbicaciones();
     this.loadProperties();
-    
+
     // Watch for filter changes
     this.filterForm.valueChanges.subscribe(() => {
       this.applyFilters();
@@ -329,8 +329,8 @@ export class PropertyListingComponent implements OnInit {
   loadUbicaciones(): void {
     // Mock data - in real app would call ubicacionService.searchUbicaciones()
     this.ubicaciones.set([
-      { 
-        id: 1, 
+      {
+        id: 1,
         ciudad: 'Medellín',
         departamento: 'Antioquia',
         descripcionCiudad: 'Ciudad de la eterna primavera',
@@ -338,8 +338,8 @@ export class PropertyListingComponent implements OnInit {
         fechaCreacion: new Date(),
         activo: true
       },
-      { 
-        id: 2, 
+      {
+        id: 2,
         ciudad: 'Bogotá',
         departamento: 'Cundinamarca',
         descripcionCiudad: 'Capital de Colombia',
@@ -352,7 +352,7 @@ export class PropertyListingComponent implements OnInit {
 
   loadProperties(): void {
     this.loading.set(true);
-    
+
     // Mock data - in real app would call propertyService.getProperties()
     setTimeout(() => {
       const mockProperties: Property[] = [
@@ -369,7 +369,7 @@ export class PropertyListingComponent implements OnInit {
           estado_publicacion: 'PUBLICADA' as any,
           fecha_publicacion: new Date(),
           vendedor: { id: 1, nombre: 'Juan Pérez' } as any,
-          images: [`${environment.BASE_URL}/assets/images/property-1.jpg`]
+          images: [`${environment.BASE_URL}/images/property-1.jpg`]
         },
         {
           id: 2,
@@ -384,17 +384,17 @@ export class PropertyListingComponent implements OnInit {
           estado_publicacion: 'PUBLICADA' as any,
           fecha_publicacion: new Date(),
           vendedor: { id: 2, nombre: 'María González' } as any,
-          images: [`${environment.BASE_URL}/assets/images/property-2.jpg`]
+          images: [`${environment.BASE_URL}/images/property-2.jpg`]
         }
       ];
-      
+
       // Filter only published properties with active publication date <= today
       const today = new Date();
       const publishedProperties = mockProperties.filter(
-        p => p.estado_publicacion === 'PUBLICADA' && 
-             new Date(p.fecha_publicacion_activa) <= today
+        p => p.estado_publicacion === 'PUBLICADA' &&
+          new Date(p.fecha_publicacion_activa) <= today
       );
-      
+
       this.properties.set(publishedProperties);
       this.filteredProperties.set(publishedProperties);
       this.updatePagination();
@@ -405,16 +405,16 @@ export class PropertyListingComponent implements OnInit {
   applyFilters(): void {
     const filters = this.filterForm.value;
     let filtered = [...this.properties()];
-    
+
     // Apply filters
     if (filters.ubicacion_id) {
       filtered = filtered.filter(p => p.ubicacion.id === parseInt(filters.ubicacion_id));
     }
-    
+
     if (filters.categoria_id) {
       filtered = filtered.filter(p => p.categoria.id === parseInt(filters.categoria_id));
     }
-    
+
     if (filters.cantidad_cuartos) {
       if (filters.cantidad_cuartos === '4') {
         filtered = filtered.filter(p => p.cantidad_cuartos >= 4);
@@ -422,7 +422,7 @@ export class PropertyListingComponent implements OnInit {
         filtered = filtered.filter(p => p.cantidad_cuartos === parseInt(filters.cantidad_cuartos));
       }
     }
-    
+
     if (filters.cantidad_banos) {
       if (filters.cantidad_banos === '3') {
         filtered = filtered.filter(p => p.cantidad_banos >= 3);
@@ -430,22 +430,22 @@ export class PropertyListingComponent implements OnInit {
         filtered = filtered.filter(p => p.cantidad_banos === parseInt(filters.cantidad_banos));
       }
     }
-    
+
     if (filters.precio_minimo) {
       filtered = filtered.filter(p => p.precio >= parseInt(filters.precio_minimo));
     }
-    
+
     if (filters.precio_maximo) {
       filtered = filtered.filter(p => p.precio <= parseInt(filters.precio_maximo));
     }
-    
+
     // Apply sorting
     const sortBy = filters.sortBy;
     const sortOrder = filters.sortOrder;
-    
+
     filtered.sort((a, b) => {
       let aValue: any, bValue: any;
-      
+
       switch (sortBy) {
         case 'precio':
           aValue = a.precio;
@@ -463,7 +463,7 @@ export class PropertyListingComponent implements OnInit {
           aValue = new Date(a.fecha_publicacion);
           bValue = new Date(b.fecha_publicacion);
       }
-      
+
       if (typeof aValue === 'string') {
         aValue = aValue.toLowerCase();
         bValue = bValue.toLowerCase();
@@ -472,7 +472,7 @@ export class PropertyListingComponent implements OnInit {
         return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
       }
     });
-    
+
     this.filteredProperties.set(filtered);
     this.currentPage.set(1);
     this.updatePagination();
@@ -501,37 +501,37 @@ export class PropertyListingComponent implements OnInit {
     const current = this.currentPage();
     const total = this.totalPages();
     const delta = 2;
-    
+
     if (total <= 7) {
       // Si hay 7 o menos páginas, mostrar todas
       return Array.from({ length: total }, (_, i) => i + 1);
     }
-    
+
     const range: number[] = [];
     const rangeWithDots: (number | string)[] = [];
-    
+
     // Calcular el rango alrededor de la página actual
     for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
       range.push(i);
     }
-    
+
     // Agregar la primera página
     if (current - delta > 2) {
       rangeWithDots.push(1, '...');
     } else {
       rangeWithDots.push(1);
     }
-    
+
     // Agregar el rango
     rangeWithDots.push(...range);
-    
+
     // Agregar la última página
     if (current + delta < total - 1) {
       rangeWithDots.push('...', total);
     } else if (total > 1) {
       rangeWithDots.push(total);
     }
-    
+
     // Filtrar duplicados manteniendo orden
     const seen = new Set<number | string>();
     return rangeWithDots.filter(item => {
