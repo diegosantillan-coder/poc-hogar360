@@ -369,7 +369,7 @@ export class PropertyListingComponent implements OnInit {
           estado_publicacion: 'PUBLICADA' as any,
           fecha_publicacion: new Date(),
           vendedor: { id: 1, nombre: 'Juan Pérez' } as any,
-          images: [`${environment.BASE_URL}/images/property-1.jpg`]
+          images: [`${environment.BASE_URL}/assets/images/property-1.jpg`]
         },
         {
           id: 2,
@@ -384,7 +384,7 @@ export class PropertyListingComponent implements OnInit {
           estado_publicacion: 'PUBLICADA' as any,
           fecha_publicacion: new Date(),
           vendedor: { id: 2, nombre: 'María González' } as any,
-          images: [`${environment.BASE_URL}/images/property-2.jpg`]
+          images: [`${environment.BASE_URL}/assets/images/property-2.jpg`]
         }
       ];
 

@@ -89,7 +89,7 @@ export class DashboardLayoutComponent implements OnInit {
     return {
       name: user?.nombre || 'Usuario',
       role: user?.role || 'usuario',
-      avatar: user?.avatar || `${environment.BASE_URL}/images/avatar.jpg`
+      avatar: user?.avatar || `${environment.BASE_URL}/assets/images/avatar.jpg`
     };
   }
 

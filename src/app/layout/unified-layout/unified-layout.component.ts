@@ -59,7 +59,7 @@ export class UnifiedLayoutComponent implements OnInit {
 
     for (const file of iconFiles) {
       try {
-        const svg = await firstValueFrom(this.http.get(`${environment.BASE_URL}/images/${file}`, { responseType: 'text' }));
+        const svg = await firstValueFrom(this.http.get(`${environment.BASE_URL}/assets/images/${file}`, { responseType: 'text' }));
         if (svg) {
           this.svgCache.set(file, svg);
         }

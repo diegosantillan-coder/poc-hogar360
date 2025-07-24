@@ -355,7 +355,7 @@ export class AdminLayoutComponent implements OnInit {
 
   getUserAvatar(): string {
     // Usar una imagen por defecto o la imagen del usuario
-    return this.authFacade.getCurrentUser()?.avatar || `${environment.BASE_URL}/images/avatar.jpg`;
+    return this.authFacade.getCurrentUser()?.avatar || `${environment.BASE_URL}/assets/images/avatar.jpg`;
   }
 
   isActiveRoute(route: string): boolean {
